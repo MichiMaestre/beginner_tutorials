@@ -1,0 +1,8 @@
+Checking src/listener.cpp...
+[src/listener.cpp:1]: (information) Include file: "ros/ros.h" not found.
+[src/listener.cpp:2]: (information) Include file: "std_msgs/String.h" not found.
+1/2 files checked 43% done
+Checking src/talker.cpp...
+[src/talker.cpp:1]: (information) Include file: "ros/ros.h" not found.
+[src/talker.cpp:2]: (information) Include file: "std_msgs/String.h" not found.
+2/2 files checked 100% done
