@@ -1,6 +1,11 @@
+/**
+ * Copyright (c) 2017 Miguel Maestre Trueba
+ */
+
+
 #include "ros/ros.h"
 #include "std_msgs/String.h"
-
+#include <string>
 #include <sstream>
 
 /**
@@ -59,9 +64,10 @@ int main(int argc, char **argv)
      * This is a message object. You stuff it with data, and then publish it.
      */
     std_msgs::String msg;
+    std::string custom = "Michi's custom string";
 
     std::stringstream ss;
-    ss << "hello world " << count;
+    ss << custom << " " << count;
     msg.data = ss.str();
 
     ROS_INFO("%s", msg.data.c_str());
