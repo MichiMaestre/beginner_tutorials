@@ -1,5 +1,8 @@
 /**
- * Copyright (c) 2017 Miguel Maestre Trueba
+ *@copyright Copyright (c) 2017 Miguel Maestre Trueba
+ *@file talker.cpp
+ *@author Miguel Maestre Trueba
+ *@brief ROS publisher node that send messages
  */
 
 #include <string>
@@ -9,6 +12,13 @@
 
 /**
  * This tutorial demonstrates simple sending of messages over the ROS system.
+ */
+
+/**
+ * @brief The main function is where the talker node is created
+ * @param argc is the number of input arguments
+ * @param argv is the arguments 
+ * @return 0 if everything works
  */
 int main(int argc, char **argv) {
   /**

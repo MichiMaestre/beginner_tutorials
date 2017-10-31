@@ -1,6 +1,9 @@
 
 /**
- * Copyright (c) 2017 Miguel Maestre Trueba
+ *@copyright Copyright (c) 2017 Miguel Maestre Trueba
+ *@file talker.cpp
+ *@author Miguel Maestre Trueba
+ *@brief ROS publisher node that send messages
  */
 
 #include "ros/ros.h"
@@ -9,10 +12,21 @@
 /**
  * This tutorial demonstrates simple receipt of messages over the ROS system.
  */
+
+/**
+ *@brief Function that reads the message and outputs it
+ *@param msg is the message received from the talker node
+ */
 void chatterCallback(const std_msgs::String::ConstPtr& msg) {
   ROS_INFO("I heard: [%s]", msg->data.c_str());
 }
 
+/**
+ * @brief The main function is where the listener node is created
+ * @param argc is the number of input arguments
+ * @param argv is the arguments 
+ * @return 0 if everything works
+ */
 int main(int argc, char **argv) {
   /**
    * The ros::init() function needs to see argc and argv so that it can perform
