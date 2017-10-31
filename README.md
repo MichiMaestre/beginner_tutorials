@@ -45,6 +45,7 @@ source devel/setup.bash
 rosrun beginner_tutorials talker
 ```
 The terminal should output messages similar to:
+
 `[ INFO] [1509468152.573652817]: Michi's custom string 315`
 
 * In a third terminal:
@@ -54,4 +55,5 @@ source devel/setup.bash
 rosrun beginner_tutorials listener
 ```
 The terminal should output messages similar to:
+
 `[ INFO] [1509468152.574110066]: I heard: [Michi's custom string 315]`
