@@ -84,6 +84,7 @@ The talker and listener terminals should output now the new message.
 * Now run the following commands in the terminal:
 ```
 cd ros_ws
+source devel/setup.bash
 roslaunch beginner_tutorials tutorial.launch frequency:=5
 ```
 where `frequency` is the argument that changes the publisher frequency. The value 5 is just an example and it can be changed for whatever other integer value.
