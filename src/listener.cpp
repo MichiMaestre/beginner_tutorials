@@ -1,9 +1,9 @@
 
 /**
  *@copyright Copyright (c) 2017 Miguel Maestre Trueba
- *@file talker.cpp
+ *@file listener.cpp
  *@author Miguel Maestre Trueba
- *@brief ROS publisher node that send messages
+ *@brief ROS listener node that receives messages
  */
 
 #include "ros/ros.h"

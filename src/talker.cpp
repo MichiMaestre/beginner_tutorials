@@ -2,7 +2,7 @@
  *@copyright Copyright (c) 2017 Miguel Maestre Trueba
  *@file talker.cpp
  *@author Miguel Maestre Trueba
- *@brief ROS publisher node that send messages
+ *@brief ROS publisher node that sends messages
  */
 
 #include <string>
@@ -19,7 +19,10 @@
 std::string custom = "Michi's custom string"; // Base output string 
 
 /**
- * DOXYGEN COMMENTS
+ *@brief Function that provides the service that changes the string published by the talker node. 
+ *@param req is the request type defined in the srv file
+ *@param res is the response type defined in the stv file
+ *@return true if everything works
  */
 bool change_string(beginner_tutorials::service::Request  &req,
          beginner_tutorials::service::Response &res) {
@@ -30,11 +33,10 @@ bool change_string(beginner_tutorials::service::Request  &req,
 }
 
 
-
 /**
  * @brief The main function is where the talker node is created
  * @param argc is the number of input arguments
- * @param argv is the arguments 
+ * @param argv is the publisher frequency, given as argument through command line.
  * @return 0 if everything works
  */
 int main(int argc, char **argv) {
@@ -75,21 +77,26 @@ int main(int argc, char **argv) {
    * buffer up before throwing some away.
    */
   ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
+  std::cout << chatter_pub << std::endl;
 
   // Create the service and advertise over ROS
   ros::ServiceServer service = n.advertiseService("change_string", change_string);
 
   // Publishing frequency is given as an argument in tutorial.launch
-  double freq;
+  int freq;
   freq = std::atoi(argv[1]); // give frequency the value of argument
+  // ERROR Logging level check
   if (freq <= 0)
     ROS_ERROR_STREAM("Invalid publisher frequency");
+  // WARN Logging level check
+  if (freq < 2)
+    ROS_WARN_STREAM("Frequency too low. Could cause lag");
 
+  // DEBUG Logging level check
   ROS_DEBUG_STREAM("Publisher frequency set up to: " << freq);
+  ROS_INFO_STREAM("Publisher frequency set up to: " << freq);
 
   ros::Rate loop_rate(freq);
-
-
 
   /**
    * A count of how many messages we have sent. This is used to create
@@ -97,6 +104,7 @@ int main(int argc, char **argv) {
    */
   int count = 0;
   while (ros::ok()) {
+
     /**
      * This is a message object. You stuff it with data, and then publish it.
      */
