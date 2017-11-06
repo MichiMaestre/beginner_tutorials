@@ -33,7 +33,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * This tutorial demonstrates simple sending of messages over the ROS system.
  */
 
-std::string custom = "Michi's custom string"; // Base output string 
+std::string custom = "Michi's custom string";  // Base output string
 
 /**
  *@brief Function that provides the service that changes the string published by the talker node. 
@@ -43,8 +43,8 @@ std::string custom = "Michi's custom string"; // Base output string
  */
 bool change_string(beginner_tutorials::service::Request  &req,
          beginner_tutorials::service::Response &res) {
-  custom = req.a; // "a" is the input string in the service
-  res.b = custom; // "b" is the output string of the service
+  custom = req.a;  // "a" is the input string in the service
+  res.b = custom;  // "b" is the output string of the service
   ROS_INFO_STREAM("Custom String is being updated");
   return true;
 }
@@ -97,11 +97,12 @@ int main(int argc, char **argv) {
   std::cout << chatter_pub << std::endl;
 
   // Create the service and advertise over ROS
-  ros::ServiceServer service = n.advertiseService("change_string", change_string);
+  ros::ServiceServer service = n.advertiseService
+                  ("change_string", change_string);
 
   // Publishing frequency is given as an argument in tutorial.launch
   int freq;
-  freq = std::atoi(argv[1]); // give frequency the value of argument
+  freq = std::atoi(argv[1]);  // give frequency the value of argument
   // ERROR Logging level check
   if (freq <= 0)
     ROS_ERROR_STREAM("Invalid publisher frequency");
@@ -118,7 +119,6 @@ int main(int argc, char **argv) {
    */
   int count = 0;
   while (ros::ok()) {
-
     /**
      * This is a message object. You stuff it with data, and then publish it.
      */
