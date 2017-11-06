@@ -8,6 +8,7 @@
 #include <string>
 #include <sstream>
 #include "ros/ros.h"
+#include "ros/console.h"
 #include "std_msgs/String.h"
 #include "beginner_tutorials/service.h"
 
@@ -24,7 +25,7 @@ bool change_string(beginner_tutorials::service::Request  &req,
          beginner_tutorials::service::Response &res) {
   custom = req.a; // "a" is the input string in the service
   res.b = custom; // "b" is the output string of the service
-  ROS_INFO("Updating Custom String");
+  ROS_INFO_STREAM("Custom String is being updated");
   return true;
 }
 
@@ -75,12 +76,18 @@ int main(int argc, char **argv) {
    */
   ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
 
-  // Create the service and advertised over ROS
+  // Create the service and advertise over ROS
   ros::ServiceServer service = n.advertiseService("change_string", change_string);
 
-  // Change later
-  ros::Rate loop_rate(10);
+  // Publishing frequency is given as an argument in tutorial.launch
+  double freq;
+  freq = std::atoi(argv[1]); // give frequency the value of argument
+  if (freq <= 0)
+    ROS_ERROR_STREAM("Invalid publisher frequency");
 
+  ROS_DEBUG_STREAM("Publisher frequency set up to: " << freq);
+
+  ros::Rate loop_rate(freq);
 
 
 
