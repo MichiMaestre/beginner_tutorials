@@ -9,10 +9,26 @@
 #include <sstream>
 #include "ros/ros.h"
 #include "std_msgs/String.h"
+#include "beginner_tutorials/service.h"
 
 /**
  * This tutorial demonstrates simple sending of messages over the ROS system.
  */
+
+std::string custom = "Michi's custom string"; // Base output string 
+
+/**
+ * DOXYGEN COMMENTS
+ */
+bool change_string(beginner_tutorials::service::Request  &req,
+         beginner_tutorials::service::Response &res) {
+  custom = req.a; // "a" is the input string in the service
+  res.b = custom; // "b" is the output string of the service
+  ROS_INFO("Updating Custom String");
+  return true;
+}
+
+
 
 /**
  * @brief The main function is where the talker node is created
@@ -59,7 +75,14 @@ int main(int argc, char **argv) {
    */
   ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
 
+  // Create the service and advertised over ROS
+  ros::ServiceServer service = n.advertiseService("change_string", change_string);
+
+  // Change later
   ros::Rate loop_rate(10);
+
+
+
 
   /**
    * A count of how many messages we have sent. This is used to create
@@ -71,7 +94,6 @@ int main(int argc, char **argv) {
      * This is a message object. You stuff it with data, and then publish it.
      */
     std_msgs::String msg;
-    std::string custom = "Michi's custom string";
 
     std::stringstream ss;
     ss << custom << " " << count;
