@@ -39,7 +39,7 @@ std::string custom = "Michi's custom string";  // NOLINT
 /**
  *@brief Function that provides the service that changes the string published by the talker node. 
  *@param req is the request type defined in the srv file
- *@param res is the response type defined in the stv file
+ *@param res is the response type defined in the srv file
  *@return true if everything works
  */
 bool change_string(beginner_tutorials::service::Request  &req,  // NOLINT

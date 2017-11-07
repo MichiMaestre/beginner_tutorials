@@ -50,7 +50,7 @@ cd ros_ws
 source devel/setup.bash
 rosrun beginner_tutorials talker frequencyvalue
 ```
-frequencyvalue is the only argument of the node. The terminal should output messages similar to:
+frequencyvalue is the only argument of the node and has to be an integer value. The terminal should output messages similar to:
 
 `[ INFO] [1509468152.573652817]: Michi's custom string 315`
 
