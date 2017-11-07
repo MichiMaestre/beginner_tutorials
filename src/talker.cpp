@@ -94,7 +94,6 @@ int main(int argc, char **argv) {
    * buffer up before throwing some away.
    */
   ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
-  std::cout << chatter_pub << std::endl;
 
   // Create the service and advertise over ROS
   ros::ServiceServer service = n.advertiseService
@@ -112,6 +111,10 @@ int main(int argc, char **argv) {
   ROS_INFO_STREAM("Publisher frequency set up to: " << freq);
 
   ros::Rate loop_rate(freq);
+
+  // If ROS 
+  if(!ros::ok())
+    ROS_FATAL_STREAM("ROS node not running...");
 
   /**
    * A count of how many messages we have sent. This is used to create
