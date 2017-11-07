@@ -33,7 +33,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * This tutorial demonstrates simple sending of messages over the ROS system.
  */
 
-std::string custom = "Michi's custom string";  // Base output string
+// Base output string
+std::string custom = "Michi's custom string";  // NOLINT
 
 /**
  *@brief Function that provides the service that changes the string published by the talker node. 
@@ -41,8 +42,8 @@ std::string custom = "Michi's custom string";  // Base output string
  *@param res is the response type defined in the stv file
  *@return true if everything works
  */
-bool change_string(beginner_tutorials::service::Request  &req,
-         beginner_tutorials::service::Response &res) {
+bool change_string(beginner_tutorials::service::Request  &req,  // NOLINT
+         beginner_tutorials::service::Response &res) {  // NOLINT
   custom = req.a;  // "a" is the input string in the service
   res.b = custom;  // "b" is the output string of the service
   ROS_INFO_STREAM("Custom String is being updated");
@@ -112,8 +113,8 @@ int main(int argc, char **argv) {
 
   ros::Rate loop_rate(freq);
 
-  // If ROS 
-  if(!ros::ok())
+  // If ROS
+  if (!ros::ok())
     ROS_FATAL_STREAM("ROS node not running...");
 
   /**
