@@ -12,7 +12,7 @@
   </node>
 
   <node pkg = "rosbag" name= "rosbag_record_all" type= "record"
-  		args = "-a -0 bagfile" output = "screen" 
+  		args = "-a -O bagfile" output = "screen" 
   		if="$(eval rosbagFlag == true)">
   </node>
 
