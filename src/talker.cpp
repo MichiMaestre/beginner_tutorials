@@ -27,7 +27,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "ros/ros.h"
 #include "ros/console.h"
 #include "std_msgs/String.h"
+#include <tf/transform_broadcaster.h>
 #include "beginner_tutorials/service.h"
+
 
 /**
  * This tutorial demonstrates simple sending of messages over the ROS system.
@@ -100,6 +102,10 @@ int main(int argc, char **argv) {
   ros::ServiceServer service = n.advertiseService
                   ("change_string", change_string);
 
+  // Create the transform broadcaster
+  static tf::TransformBroadcaster broadcaster;
+  tf::Transform transform;
+
   // Publishing frequency is given as an argument in tutorial.launch
   int freq;
   freq = std::atoi(argv[1]);  // give frequency the value of argument
@@ -146,6 +152,16 @@ int main(int argc, char **argv) {
      * in the constructor above.
      */
     chatter_pub.publish(msg);
+
+
+    // Create the transform
+    transform.setOrigin( tf::Vector3(5, 3, 5) );
+    tf::Quaternion q;
+    q.setRPY(3.14, 1.57, 2);
+    transform.setRotation(q);
+
+    // Broadcast the transform
+    broadcaster.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "world", "talk"));
 
     ros::spinOnce();
 
