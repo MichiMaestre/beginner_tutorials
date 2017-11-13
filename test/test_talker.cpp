@@ -25,11 +25,18 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "ros/ros.h"
 #include <gtest/gtest.h>
+#include <tf/transform_listener.h>
+#include "beginner_tutorials/service.h"
 
 // Declare a test
-TEST(TestSuite, testCase1) {
-	bool uno = true;
-	EXPECT_TRUE(uno);
+TEST(TestSuite, TransformTest) {
+	ros::NodeHandle n;
+	beginner_tutorials::service srv;
+	ros::ServiceClient client = n.serviceClient<beginner_tutorials::service>("change_string");
+
+	// Tests that the service exists and has an empty string as input
+	EXPECT_EQ("", srv.request.a);
+	EXPECT_EQ("", srv.response.b);
 }
 
 // Run all the tests that were declared with TEST()
