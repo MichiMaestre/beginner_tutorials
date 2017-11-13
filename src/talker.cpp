@@ -1,23 +1,60 @@
-/**
- *@copyright Copyright (c) 2017 Miguel Maestre Trueba
+/** MIT License
+Copyright (c) 2017 Miguel Maestre Trueba
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *
+ *@copyright Copyright 2017 Miguel Maestre Trueba
  *@file talker.cpp
  *@author Miguel Maestre Trueba
- *@brief ROS publisher node that send messages
+ *@brief ROS publisher node that sends messages
  */
 
 #include <string>
 #include <sstream>
 #include "ros/ros.h"
+#include "ros/console.h"
 #include "std_msgs/String.h"
+#include "beginner_tutorials/service.h"
 
 /**
  * This tutorial demonstrates simple sending of messages over the ROS system.
  */
 
+// Base output string
+std::string custom = "Michi's custom string";  // NOLINT
+
+/**
+ *@brief Function that provides the service that changes the string published by the talker node. 
+ *@param req is the request type defined in the srv file
+ *@param res is the response type defined in the srv file
+ *@return true if everything works
+ */
+bool change_string(beginner_tutorials::service::Request  &req,  // NOLINT
+         beginner_tutorials::service::Response &res) {  // NOLINT
+  custom = req.a;  // "a" is the input string in the service
+  res.b = custom;  // "b" is the output string of the service
+  ROS_INFO_STREAM("Custom String is being updated");
+  return true;
+}
+
+
 /**
  * @brief The main function is where the talker node is created
  * @param argc is the number of input arguments
- * @param argv is the arguments 
+ * @param argv is the publisher frequency, given as argument through command line.
  * @return 0 if everything works
  */
 int main(int argc, char **argv) {
@@ -59,7 +96,26 @@ int main(int argc, char **argv) {
    */
   ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
 
-  ros::Rate loop_rate(10);
+  // Create the service and advertise over ROS
+  ros::ServiceServer service = n.advertiseService
+                  ("change_string", change_string);
+
+  // Publishing frequency is given as an argument in tutorial.launch
+  int freq;
+  freq = std::atoi(argv[1]);  // give frequency the value of argument
+  // ERROR Logging level check
+  if (freq <= 0)
+    ROS_ERROR_STREAM("Invalid publisher frequency");
+
+  // DEBUG Logging level check
+  ROS_DEBUG_STREAM("Publisher frequency set up to: " << freq);
+  ROS_INFO_STREAM("Publisher frequency set up to: " << freq);
+
+  ros::Rate loop_rate(freq);
+
+  // If ROS
+  if (!ros::ok())
+    ROS_FATAL_STREAM("ROS node not running...");
 
   /**
    * A count of how many messages we have sent. This is used to create
@@ -71,13 +127,17 @@ int main(int argc, char **argv) {
      * This is a message object. You stuff it with data, and then publish it.
      */
     std_msgs::String msg;
-    std::string custom = "Michi's custom string";
 
     std::stringstream ss;
     ss << custom << " " << count;
     msg.data = ss.str();
 
     ROS_INFO("%s", msg.data.c_str());
+
+    // WARN Logging level check
+    if (freq < 2)
+      ROS_WARN_STREAM("Frequency too low. Could cause lag");
+
 
     /**
      * The publish() function is how you send messages. The parameter
