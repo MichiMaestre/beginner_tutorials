@@ -23,6 +23,7 @@ Lastly, `tutorial.launch` Was modified so that it includes data recording using 
 * roscpp package
 * std_msgs package
 * genmsg package
+* tf package
 
 ## How to build
 
