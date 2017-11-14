@@ -103,12 +103,10 @@ To verify that the TF frames were correctly created, two different actions can b
 
 * First run the talker node in a terminal and then run tf_echo in another terminal:
 
-```
-rosrun beginner_tutorials talker frequencyvalue
-rosrun tf tf_echo world talk
-```
+`rosrun beginner_tutorials talker frequencyvalue` and then `rosrun tf tf_echo world talk`
+
 The output should be something like:
-![tf_echo](/home/michi/Pictures/week11_1.png?raw=true)
+![tf_echo](https://github.com/MichiMaestre/beginner_tutorials/blob/Week11_HW/imgs/tf_echo.png)
 
 * The second option is to use rqt_tf_tree. With the talker node running in a terminal, run the next command in a another terminal:
 
@@ -117,7 +115,7 @@ rosrun rqt_tf_tree rqt_tf_tree
 ```
 
 The output should be something like:
-![rqttree](/home/michi/Pictures/rqt_tree.png?raw=true)
+![rqttree](https://github.com/MichiMaestre/beginner_tutorials/blob/Week11_HW/imgs/rqt_tree.png)
 
 Lastly, to generate a pdf with the frames, run:
 
@@ -127,7 +125,7 @@ rosrun tf view_frames
 
 ## Running rostest
 
-To run rostest, we do not need to run any node. In a terminal go to your cat_ws directory and run the next command:
+To run rostest, we do not need to run any node. In a terminal go to your ros_ws directory and run the next commands:
 
 ```
 cd ~/ros_ws
@@ -135,12 +133,12 @@ source devel/setup.bash
 catkin_make run_tests
 ```
 
-This will compile the tests and the terminal should output the resutls of the tests as shown:
-![tf_echo](/home/michi/Pictures/week11_1.png?raw=true)
+This will compile the tests and the terminal should output the results of the tests as shown:
+![test](https://github.com/MichiMaestre/beginner_tutorials/blob/Week11_HW/imgs/rostest.png)
 
 ## Recording with bag files
 
-To record using rosbag, we have to launch the updated tutorial.launch. A new argument called _rosbagFlag_ is included in the launch file. When called as _true_ the data will be recorded. If called as false or not called at all, the data will not be recorded.
+To record using rosbag, we have to launch the updated `tutorial.launch`. A new argument called _rosbagFlag_ is included in the launch file. When called as _true_ the data will be recorded. If called as false or not called at all, the data will not be recorded.
 
 * To record data:
 
@@ -149,7 +147,7 @@ cd ~/ros_ws
 source devel/setup.bash
 roslaunch beginner_tutorials tutorial.launch rosbagFlag:=true
 ```
-This will record the data in the `~/.ros` folder. To access it:
+This will record the data in the `~/.ros` folder. To access it and see its information:
 
 ```
 cd ~/.ros
@@ -167,7 +165,7 @@ Once the bag file is generated, it can be used as data to be sent to the listene
 ```
 cd ~/ros_ws
 source devel/setup.bash
-rosrun beginner_tutoria listener
+rosrun beginner_tutorials listener
 ```
 
 In a second terminal, go where `bagfile.bag` is stored and run:
