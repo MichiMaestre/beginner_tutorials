@@ -106,6 +106,7 @@ To verify that the TF frames were correctly created, two different actions can b
 `rosrun beginner_tutorials talker frequencyvalue` and then `rosrun tf tf_echo world talk`
 
 The output should be something like:
+
 ![tf_echo](https://github.com/MichiMaestre/beginner_tutorials/blob/Week11_HW/imgs/tf_echo.png)
 
 * The second option is to use rqt_tf_tree. With the talker node running in a terminal, run the next command in a another terminal:
@@ -115,6 +116,7 @@ rosrun rqt_tf_tree rqt_tf_tree
 ```
 
 The output should be something like:
+
 ![rqttree](https://github.com/MichiMaestre/beginner_tutorials/blob/Week11_HW/imgs/rqt_tree.png)
 
 Lastly, to generate a pdf with the frames, run:
