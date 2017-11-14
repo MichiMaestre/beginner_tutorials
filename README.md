@@ -9,11 +9,11 @@ The communication between nodes is done with a service that can be found in the 
 A launch file was added to run both nodes at same time. An argument to change the publisher frequency was also added in the launch file and in the code.
 The logging levels INFO, DEBUG, WARN, ERROR and FATAL have been used in the package. 
 
-For Week 11, a transform broadcaster was added to the talker node. It will create a static transform between the _world_ parent frame a frame called _talk_. A PDF file with the transforms tree is included in the results directory.
+For Week 11, a transform broadcaster was added to the talker node. It will create a static transform between the _world_ parent frame and a frame called _talk_. A PDF file with the transforms tree is included in the results directory.
 
 Unit testing was also implemented with rostest. It tests if the service is being created properly by creating a service client.
 
-Lastly, `tutorial.launch` mas modified so that it includes data recording using rosbag. It records all the topics when the talker and listener nodes are running. A sample .bag file is included in the results directory of the repository.
+Lastly, `tutorial.launch` Was modified so that it includes data recording using rosbag. It records all the topics when the talker and listener nodes are running. A sample .bag file is included in the results directory of the repository.
 
 
 ## Dependencies
