@@ -1,4 +1,4 @@
-# ROS Beginner Tutorials- Week 10 HW Branch
+# ROS Beginner Tutorials- Week 11 HW Branch
 
 ## Overview
 
@@ -7,8 +7,14 @@ In this project, simple ROS publisher and subscriber were implemented in C++. Th
 The communication between nodes is done with a service that can be found in the `srv` folder. The package was updated by adding the service code in the talker node so that when commanded, the published string changes by using the service.
 
 A launch file was added to run both nodes at same time. An argument to change the publisher frequency was also added in the launch file and in the code.
+The logging levels INFO, DEBUG, WARN, ERROR and FATAL have been used in the package. 
 
-Lastly, the logging levels INFO, DEBUG, WARN, ERROR and FATAL have been used in the package. 
+For Week 11, a transform broadcaster was added to the talker node. It will create a static transform between the _world_ parent frame a frame called _talk_. A PDF file with the transforms tree is included in the results directory.
+
+Unit testing was also implemented with rostest. It tests if the service is being created properly by creating a service client.
+
+Lastly, `tutorial.launch` mas modified so that it includes data recording using rosbag. It records all the topics when the talker and listener nodes are running. A sample .bag file is included in the results directory of the repository.
+
 
 ## Dependencies
 
@@ -32,7 +38,7 @@ catkin_make
 ```
 cd ros_ws
 cd src
-git clone -b Week10_HW https://github.com/MichiMaestre/beginner_tutorials.git
+git clone -b Week11_HW https://github.com/MichiMaestre/beginner_tutorials.git
 cd ..
 catkin_make
 ```
@@ -90,3 +96,31 @@ roslaunch beginner_tutorials tutorial.launch frequency:=5
 where `frequency` is the argument that changes the publisher frequency. The value 5 is just an example and it can be changed for whatever other integer value.
 
 * Once the `roslaunch` command is executed, another terminal will be opened with the listener output. The first terminal outputs the talker node's output.
+
+## Inspecting TF frames
+
+To verify that the TF frames were correctly created, two different actions can be done:
+
+* First run the talker node in a terminal and then run tf_echo in another terminal:
+
+```
+rosrun beginner_tutorials talker frequencyvalue
+rosrun tf tf_echo world talk
+```
+The output should be something like:
+![tf_echo](/home/michi/Pictures/week11_1.png?raw=true)
+
+* The second option is to use rqt_tf_tree. With the talker node running in a terminal, run the next command in a another terminal:
+
+```
+rosrun rqt_tf_tree rqt_tf_tree 
+```
+
+The output should be something like:
+![rqttree](/home/michi/Pictures/rqt_tree.png?raw=true)
+
+Lastly, to generate a pdf with the frames, run:
+
+```
+rosrun tf view_frames
+```
