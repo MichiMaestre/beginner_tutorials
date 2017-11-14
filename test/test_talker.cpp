@@ -17,31 +17,41 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  *
  *@copyright Copyright 2017 Miguel Maestre Trueba
- *@file listener.cpp
+ *@file test_talker.cpp
  *@author Miguel Maestre Trueba
- *@brief ROS listener node that receives messages
+ *@brief Unit testing to see if service is created 
  */
 
 
-#include "ros/ros.h"
 #include <gtest/gtest.h>
 #include <tf/transform_listener.h>
+#include "ros/ros.h"
 #include "beginner_tutorials/service.h"
 
-// Declare a test
-TEST(TestSuite, TransformTest) {
-	ros::NodeHandle n;
-	beginner_tutorials::service srv;
-	ros::ServiceClient client = n.serviceClient<beginner_tutorials::service>("change_string");
 
-	// Tests that the service exists and has an empty string as input
-	EXPECT_EQ("", srv.request.a);
-	EXPECT_EQ("", srv.response.b);
+/**
+ *@brief Declare a test to check if service has been created and is empty.
+ */
+TEST(TestSuite, TransformTest) {
+    ros::NodeHandle n;
+    beginner_tutorials::service srv;
+    ros::ServiceClient client =
+        n.serviceClient<beginner_tutorials::service>("change_string");
+
+    // Tests that the service exists and has an empty string as input
+    EXPECT_EQ("", srv.request.a);
+    EXPECT_EQ("", srv.response.b);
 }
 
-// Run all the tests that were declared with TEST()
+
+/**
+ *@brief Run all the tests that were declared with TEST().
+ *@param argc
+ *@param argv
+ *@return RUN_ALL_TESTS
+ */
 int main(int argc, char **argv) {
-	ros::init(argc, argv, "test_talker");
-  	testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
+    ros::init(argc, argv, "test_talker");
+    testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }

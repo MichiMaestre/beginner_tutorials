@@ -19,15 +19,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *@copyright Copyright 2017 Miguel Maestre Trueba
  *@file talker.cpp
  *@author Miguel Maestre Trueba
- *@brief ROS publisher node that sends messages
+ *@brief ROS publisher node that sends messages and broadcasts a static transform
  */
 
+#include <tf/transform_broadcaster.h>
 #include <string>
 #include <sstream>
 #include "ros/ros.h"
 #include "ros/console.h"
 #include "std_msgs/String.h"
-#include <tf/transform_broadcaster.h>
 #include "beginner_tutorials/service.h"
 
 
@@ -155,13 +155,14 @@ int main(int argc, char **argv) {
 
 
     // Create the transform
-    transform.setOrigin( tf::Vector3(5, 3, 5) );
+    transform.setOrigin(tf::Vector3(5, 3, 5));
     tf::Quaternion q;
     q.setRPY(3.14, 1.57, 2);
     transform.setRotation(q);
 
     // Broadcast the transform
-    broadcaster.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "world", "talk"));
+    broadcaster.sendTransform(tf::StampedTransform(transform,
+      ros::Time::now(), "world", "talk"));
 
     ros::spinOnce();
 
