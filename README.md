@@ -124,3 +124,54 @@ Lastly, to generate a pdf with the frames, run:
 ```
 rosrun tf view_frames
 ```
+
+## Running rostest
+
+To run rostest, we do not need to run any node. In a terminal go to your cat_ws directory and run the next command:
+
+```
+cd ~/ros_ws
+source devel/setup.bash
+catkin_make run_tests
+```
+
+This will compile the tests and the terminal should output the resutls of the tests as shown:
+![tf_echo](/home/michi/Pictures/week11_1.png?raw=true)
+
+## Recording with bag files
+
+To record using rosbag, we have to launch the updated tutorial.launch. A new argument called _rosbagFlag_ is included in the launch file. When called as _true_ the data will be recorded. If called as false or not called at all, the data will not be recorded.
+
+* To record data:
+
+```
+cd ~/ros_ws
+source devel/setup.bash
+roslaunch beginner_tutorials tutorial.launch rosbagFlag:=true
+```
+This will record the data in the `~/.ros` folder. To access it:
+
+```
+cd ~/.ros
+rosbag info bagfile.bag
+```
+
+* If the data recording is not needed, just launch:
+
+`roslaunch beginner_tutorials tutorial.launch` or `roslaunch beginner_tutorials tutorial.launch rosbagFlag:=false`
+
+## Bag file demonstration with listener
+
+Once the bag file is generated, it can be used as data to be sent to the listener. To try this, in a first terminal run the listener node (with roscore running already):
+
+```
+cd ~/ros_ws
+source devel/setup.bash
+rosrun beginner_tutoria listener
+```
+
+In a second terminal, go where `bagfile.bag` is stored and run:
+
+`rosbag play bagfile.bag`
+
+This will run the rosbag and the listener will start receiving the data sent by `bagfile.bag`.

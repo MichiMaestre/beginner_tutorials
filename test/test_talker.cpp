@@ -32,7 +32,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /**
  *@brief Declare a test to check if service has been created and is empty.
  */
-TEST(TestSuite, TransformTest) {
+TEST(TestSuite, ServiceTest) {
     ros::NodeHandle n;
     beginner_tutorials::service srv;
     ros::ServiceClient client =
